@@ -66,7 +66,7 @@ function editDescription(id) {
     const photo = photos.find(photo => photo.id === id);
 
     // Prompt the user for a new description
-    const newDescription = prompt(`Edit description:`, photo.description);
+    const newDescription = prompt(`Edit description of photo:`, photo.description);
 
     if (newDescription !== null) {
         // Update the description
@@ -95,16 +95,22 @@ function initStorage() {
 
 // loads the content from the data base
 function loadPhotoFromLocalStorage() {
-    const photoJSON = localStorage.getItem(`photos`)
+    const photoJSON = localStorage.getItem(`photos`);
     if (photoJSON) {
-        const photos = JSON.parse(photoJSON)
+        const photos = JSON.parse(photoJSON);
 
+        // accumulate all HTML in a single variable
+        let accumulatedHTML = '';
         photos.forEach(photo => {
-            const newHTML = generateHTML(photo)
-            renderHTML(newHTML)
+            accumulatedHTML += generateHTML(photo);
         });
+
+        // Pushes all the accumulated HTML to the DOM in one operation AND NOT IN A LOOP
+        const album = document.getElementById('album');
+        album.innerHTML += accumulatedHTML;
     }
 }
+
 
 
 function deletePhoto(id) {
@@ -139,4 +145,5 @@ function addPhoto(event) {
 
 // The start of the program 
 initStorage()
+// Loads the content
 loadPhotoFromLocalStorage()
