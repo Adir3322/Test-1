@@ -1,8 +1,4 @@
-@font-face {
-    font-family: 'christmas';
-    src: url('/assets/fonts/christmas.otf');
-}
-
+/* General body styling */
 html,
 body {
     margin: 0;
@@ -11,10 +7,92 @@ body {
     text-align: center;
     background-image: url('/assets/images/tile.jpg');
     justify-content: center;
-
 }
 
+/* Grid container styling */
 #grid {
     display: grid;
+    gap: 20px;
+    justify-items: center;
+}
 
+/* Album Section */
+#album {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Card styling */
+.image-card {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: left;
+    width: 100%;
+    max-width: 300px;
+    position: relative;
+    /* Position for delete button */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 10px;
+    /* Added padding inside the card */
+}
+
+/* Card hover effect */
+.image-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Image styling */
+.image-card img {
+    border-radius: 4px;
+    max-width: calc(100% - 20px);
+    /* Reduces the width slightly for margin */
+    height: auto;
+    margin: 10px auto;
+    /* Center the image with top-bottom margin */
+    display: block;
+    /* Ensures centering within the card */
+    position: relative;
+}
+
+/* Title styling */
+.image-card .title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #212529;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+/* Description styling */
+.image-card .description {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 10px;
+}
+
+/* Delete button styling */
+.image-card .delete-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    display: none;
+    z-index: 10;
+    font-size: 0.8rem;
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    cursor: pointer;
+}
+
+/* Show delete button on hover */
+.image-card:hover .delete-btn {
+    display: block;
 }
