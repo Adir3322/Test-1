@@ -14,4 +14,7 @@ body {
 
 }
 
-#grid {}
+#grid {
+    display: grid;
+
+}

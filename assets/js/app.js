@@ -2,7 +2,7 @@ function collectData() {
 
     const url = document.getElementById(`url`).value
     const title = document.getElementById(`title`).value
-    const description = document.getElementById(`desciption`).value
+    const description = document.getElementById(`description`).value
 
     return {
         id: Date.now(),
@@ -16,13 +16,13 @@ function collectData() {
 
 function generateHTML(data) {
     const newHTML = `
-    <div class="col-md-4">
+     <div class="col-md-4" data-id="${data.id}">
         <div class="image-card">
-            <img src="${data.url}">
-            <button class="btn btn-danger delete-btn" onclick="deletePhoto('${data.url}')">Delete</button>
-            <div class="title">${data.title}</div>
-            <div class="description">${data.description}</div>
-            <button class="btn btn-secondary btn-sm mt-2" onclick="editDescription('${data.url}')">Edit Description</button>
+            <img src="${data.url}" alt="${data.title}" class="img-fluid">
+            <button class="btn btn-danger delete-btn mt-2" onclick="deletePhoto(${data.id})">Delete</button>
+            <div class="title mt-2">${data.title}</div>
+            <div class="description text-muted">${data.description}</div>
+            <button class="btn btn-secondary btn-sm mt-2" onclick="editDescription(${data.id})">Edit Description</button>
         </div>
     </div>`
 
@@ -84,40 +84,29 @@ function loadPhotoFromLocalStorage() {
 
 }
 
-// function isExpired(date, time) {
-//     // Get the current date and time
-//     const now = new Date();
-
-//     // Combine the date and time from the task
-//     const dueDateTime = new Date(`${date}T${time}`);
-
-//     // Check if the due date and time are earlier than now
-//     return dueDateTime < now;
-// }
-
-// function getNumberOfTasksInLocalStorage() {
-//     return JSON.parse(localStorage.getItem(`tasks`)).length
-// }
 
 
-// function deleteTask(id) {
-//     let tasks = JSON.parse(localStorage.getItem(`tasks`));
-//     const newTasks = []
+function deletePhoto(id) {
+    let photos = JSON.parse(localStorage.getItem(`photos`));
+    const newPhotos = []
 
-//     // The discardation of the deleted task
-//     for (const task of tasks) {
-//         if (id !== task.id) {
-//             newTasks.push(task)
-//         }
-//     }
-//     localStorage.setItem(`tasks`, JSON.stringify(newTasks));
+    // The discardation of the deleted photo
+    photos.forEach(photo => {
+        if (id !== photo.id) {
+            newPhotos.push(photo)
+        }
 
-//     // The discardation of the DOM
-//     const taskElement = document.querySelector(`.task[data-id="${id}"]`);
-//     if (taskElement) {
-//         taskElement.remove();
-//     }
-// }
+    });
+
+
+    localStorage.setItem(`photos`, JSON.stringify(newPhotos));
+
+    // The discardation of the DOM
+    const photoElement = document.querySelector(`[data-id="${id}"]`);
+    if (photoElement) {
+        photoElement.remove();
+    }
+}
 
 // A function that adds a new task and validates if the time&date are currect
 function addPhoto(event) {

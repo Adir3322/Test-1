@@ -28,7 +28,8 @@
             <form onsubmit="addPhoto(event)" id="formContainer">
                 <input type="text" id="url" placeholder="Enter URL" required>
                 <br>
-                <input type="text" id="title" placeholder="Enter title" required>
+                <input type="text" id="title" placeholder="Enter title" required pattern="[A-Za-z\s]+"
+                    title="Only letters are allowed">
                 <br>
                 <textarea id="description" placeholder="Enter description" required></textarea>
                 <br>
@@ -39,8 +40,8 @@
             </form>
         </div>
         <div id="album">
-            <!-- Where the tasks will be added -->'
-            <!-- very nice -->
+            <!-- Where the photos will be added -->'
+            <!-- very nice(Borat impression) -->
         </div>
     </div>
 </body>
