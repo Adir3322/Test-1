@@ -18,9 +18,9 @@ function generateHTML(data) {
     const newHTML = `
      <div class="col-md-4" data-id="${data.id}">
         <div class="image-card">
+            <div class="title mt-2">${data.title}</div>
             <img src="${data.url}" alt="${data.title}" class="img-fluid">
             <button class="btn btn-danger delete-btn mt-2" onclick="deletePhoto(${data.id})">Delete</button>
-            <div class="title mt-2">${data.title}</div>
             <div class="description text-muted">${data.description}</div>
             <button class="btn btn-secondary btn-sm mt-2" onclick="editDescription(${data.id})">Edit Description</button>
         </div>
