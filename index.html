@@ -23,13 +23,22 @@
 
 <body>
     <div id="grid">
-        <header>My TodoList</header>
-        <div id="">
-            <form onsubmit="addTask(event)" id="">
+        <h1>Photo gallery</h1>
+        <div id="gridContainer">
+            <form onsubmit="addPhoto(event)" id="formContainer">
+                <input type="text" id="url" placeholder="Enter URL" required>
+                <br>
+                <input type="text" id="title" placeholder="Enter title" required>
+                <br>
+                <input type="text" id="description" placeholder="Enter description" required>
+                <br>
+                <button type="submit">Add</button>
+                <button type="reset">Reset</button>
 
+                <br><br>
             </form>
         </div>
-        <div id="tasksContainer">
+        <div id="dataContainer">
             <!-- Where the tasks will be added -->'
             <!-- very nice -->
         </div>

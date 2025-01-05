@@ -1,14 +1,16 @@
 function collectData() {
-    // const description = document.getElementById(`description`).value
-    // const date = document.getElementById(`date`).value
-    // const time = document.getElementById(`time`).value
 
-    // return {
-    //     id: Date.now(),
-    //     description,
-    //     date,
-    //     time,
-    // }
+    const url = document.getElementById(`url`)
+    const title = document.getElementById(`title`)
+    const description = document.getElementById(`desciption`)
+
+    return {
+        id: Date.now(),
+        url,
+        title,
+        description,
+
+    }
 
 }
 
@@ -116,7 +118,7 @@ function loadTasksFromLocalStorage() {
 // }
 
 // A function that adds a new task and validates if the time&date are currect
-function addTask(event) {
+function addPhoto(event) {
     event.preventDefault()
     const data = collectData()
     if (!isExpired(data.date, data.time)) {
