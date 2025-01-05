@@ -1,8 +1,8 @@
 function collectData() {
 
-    const url = document.getElementById(`url`)
-    const title = document.getElementById(`title`)
-    const description = document.getElementById(`desciption`)
+    const url = document.getElementById(`url`).value
+    const title = document.getElementById(`title`).value
+    const description = document.getElementById(`desciption`).value
 
     return {
         id: Date.now(),
@@ -15,69 +15,71 @@ function collectData() {
 }
 
 function generateHTML(data) {
-    // const newHTML = `
-    //     <div class="task ${isNewTask ? 'fadeIn' : ''}" ${isNewTask ? 'onanimationend="this.classList.remove(\'fadeIn\')"' : ''}  data-id="${data.id}">
-    //             <div id="closeButtonContainer">
-    //                 <img src="/assets/images/X.png" onclick="deleteTask(${data.id})">
-    //             </div>
-    //             <div>${data.description}</div>
-    //             <div>${data.date}</div>
-    //             <div>${data.time}</div>
-    //         </div>
-    // `
-    // return newHTML
+    const newHTML = `
+    <div class="col-md-4">
+        <div class="image-card">
+            <img src="${data.url}">
+            <button class="btn btn-danger delete-btn" onclick="deletePhoto('${data.url}')">Delete</button>
+            <div class="title">${data.title}</div>
+            <div class="description">${data.description}</div>
+            <button class="btn btn-secondary btn-sm mt-2" onclick="editDescription('${data.url}')">Edit Description</button>
+        </div>
+    </div>`
+
+    return newHTML
 }
 
 function renderHTML(newHTML) {
-    // const tasks = document.getElementById(`tasksContainer`)
-    // tasks.innerHTML += newHTML
+    const album = document.getElementById(`album`)
+    album.innerHTML += newHTML
 }
 
 
 function clearForm() {
     // // Clears it
-    // const taskForm = document.getElementById(`tasksForm`)
-    // taskForm.reset()
+    const formContainer = document.getElementById(`formContainer`)
+    formContainer.reset()
 
     // //Set it on the textarea 
-    // const descriptionInput = document.getElementById(`description`)
-    // descriptionInput.focus()
+    const url = document.getElementById(`url`)
+    url.focus()
 }
 
 
-function saveTaskToLocalStorage(taskObject) {
+function savePhotoToLocalStorage(photoObject) {
     // //Get JSON from local storage
-    // const currentTasksInStorageJSON = localStorage.getItem(`tasks`)
+    const currentPhotosInStorageJSON = localStorage.getItem(`photos`)
     // //Converts JSON to JavaScript object
-    // const currentTasksInStorage = JSON.parse(currentTasksInStorageJSON)
+    const currentPhotosInStorage = JSON.parse(currentPhotosInStorageJSON)
     // //The object we got is an array, push another item to the array
-    // currentTasksInStorage.push(taskObject)
+    currentPhotosInStorage.push(photoObject)
     // //Converts it back to JSON and saves it back to the local storage
-    // localStorage.setItem(`tasks`, JSON.stringify(currentTasksInStorage))
+    localStorage.setItem(`photos`, JSON.stringify(currentPhotosInStorage))
+
+
 
 
 }
 
 function initStorage() {
-    // const currentTaskJSON = localStorage.getItem(`tasks`)
-    // if (!currentTaskJSON) {
-    //     localStorage.setItem(`tasks`, JSON.stringify([]))
-    // }
+    const currentPhotoJSON = localStorage.getItem(`photos`)
+    if (!currentPhotoJSON) {
+        localStorage.setItem(`photos`, JSON.stringify([]))
+    }
 
 }
 
-function loadTasksFromLocalStorage() {
-    // const taskJSON = localStorage.getItem(`tasks`)
-    // if (taskJSON) {
-    //     const tasks = JSON.parse(taskJSON)
-    //     //A for loop that filters the expired tasks
-    //     for (const task of tasks) {
-    //         if (!isExpired(task.date, task.time)) {
-    //             const newHTML = generateHTML(task)
-    //             renderHTML(newHTML)
-    //         }
-    //     }
-    // }
+function loadPhotoFromLocalStorage() {
+    const photoJSON = localStorage.getItem(`photos`)
+    if (photoJSON) {
+        const photos = JSON.parse(photoJSON)
+
+        photos.forEach(photo => {
+            const newHTML = generateHTML(photo)
+            renderHTML(newHTML)
+        });
+
+    }
 
 
 }
@@ -119,18 +121,15 @@ function loadTasksFromLocalStorage() {
 
 // A function that adds a new task and validates if the time&date are currect
 function addPhoto(event) {
+    alert(`works`)
     event.preventDefault()
     const data = collectData()
-    if (!isExpired(data.date, data.time)) {
-        const newHTML = generateHTML(data, true)
-        renderHTML(newHTML)
-        saveTaskToLocalStorage(data)
-        clearForm()
-    } else {
-        alert(`The time is past due date`)
-    }
+    const newHTML = generateHTML(data)
+    renderHTML(newHTML)
+    savePhotoToLocalStorage(data)
+    clearForm()
 }
 
 // The start of the program 
 initStorage()
-loadTasksFromLocalStorage()
+loadPhotoFromLocalStorage()
